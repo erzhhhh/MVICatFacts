@@ -1,6 +1,7 @@
 package com.example.mviarchitecture.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -23,6 +24,8 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+
+        Log.i("MainFragment", "started")
 
         viewModel = activity?.let {
             ViewModelProvider(this).get(MainViewModel::class.java)

@@ -2,6 +2,7 @@ package com.example.mviarchitecture.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.mviarchitecture.R
 
@@ -23,5 +24,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.fragment_container,
                 MainFragment(), "MainFragment"
             )
+            .commit()
     }
 }

@@ -6,13 +6,13 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.mviarchitecture.model.Fact
 import com.example.mviarchitecture.model.RandomFact
+import com.example.mviarchitecture.repository.Repository
 import com.example.mviarchitecture.ui.main.state.MainStateEvent
 import com.example.mviarchitecture.ui.main.state.MainStateEvent.*
 import com.example.mviarchitecture.ui.main.state.MainViewState
 import com.example.mviarchitecture.util.AbsentLiveData
 
 class MainViewModel : ViewModel() {
-
 
     private val _stateEvent: MutableLiveData<MainStateEvent> = MutableLiveData()
 
@@ -31,10 +31,10 @@ class MainViewModel : ViewModel() {
     private fun handleStateEvent(stateEvent: MainStateEvent): LiveData<MainViewState> {
         return when (stateEvent) {
             is GetFactsEvent -> {
-                AbsentLiveData.create()
+                Repository.getFacts()
             }
             is GetRandomFactEvent -> {
-                AbsentLiveData.create()
+                Repository.getFactOfTheDay()
             }
             is NoneEvent -> {
                 AbsentLiveData.create()
