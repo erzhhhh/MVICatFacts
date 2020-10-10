@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/getFactOfTheDay"
+        android:title="Get fact of the day"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/getfacts"
         android:title="Get facts"
         app:showAsAction="never" />
