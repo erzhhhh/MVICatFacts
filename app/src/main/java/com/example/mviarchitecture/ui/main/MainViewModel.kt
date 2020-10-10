@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.example.mviarchitecture.model.Fact
+import com.example.mviarchitecture.model.RandomFact
 import com.example.mviarchitecture.ui.main.state.MainStateEvent
 import com.example.mviarchitecture.ui.main.state.MainStateEvent.*
 import com.example.mviarchitecture.ui.main.state.MainViewState
@@ -38,5 +40,25 @@ class MainViewModel : ViewModel() {
                 AbsentLiveData.create()
             }
         }
+    }
+
+    fun setRandomFactData(fact: RandomFact) {
+        val update = getCurrentViewStateOrNew()
+        update.randomFact = fact
+        _viewState.value = update
+    }
+
+    fun setFactsData(facts: List<Fact>) {
+        val update = getCurrentViewStateOrNew()
+        update.facts = facts
+        _viewState.value = update
+    }
+
+    private fun getCurrentViewStateOrNew(): MainViewState {
+        return viewState.value ?: MainViewState()
+    }
+
+    fun setStateEvent(event: MainStateEvent) {
+        _stateEvent.value = event
     }
 }
