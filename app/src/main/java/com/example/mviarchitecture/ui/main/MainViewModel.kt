@@ -11,6 +11,7 @@ import com.example.mviarchitecture.ui.main.state.MainStateEvent
 import com.example.mviarchitecture.ui.main.state.MainStateEvent.*
 import com.example.mviarchitecture.ui.main.state.MainViewState
 import com.example.mviarchitecture.util.AbsentLiveData
+import com.example.mviarchitecture.util.DataState
 
 class MainViewModel : ViewModel() {
 
@@ -21,14 +22,14 @@ class MainViewModel : ViewModel() {
         get() = _viewState
 
 
-    val dataState: LiveData<MainViewState> = Transformations
+    val dataState: LiveData<DataState<MainViewState>> = Transformations
         .switchMap(_stateEvent) { stateEvent ->
             stateEvent?.let {
                 handleStateEvent(it)
             }
         }
 
-    private fun handleStateEvent(stateEvent: MainStateEvent): LiveData<MainViewState> {
+    private fun handleStateEvent(stateEvent: MainStateEvent): LiveData<DataState<MainViewState>> {
         return when (stateEvent) {
             is GetFactsEvent -> {
                 Repository.getFacts()

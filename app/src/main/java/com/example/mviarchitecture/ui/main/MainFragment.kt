@@ -37,11 +37,25 @@ class MainFragment : Fragment() {
     private fun subscribeObservers() {
 
         viewModel.dataState.observe(viewLifecycleOwner, Observer { dataState ->
-            dataState.randomFact?.let {
-                viewModel.setRandomFactData(it)
+
+            // handle data
+            dataState.data?.let { mainViewState ->
+                mainViewState.randomFact?.let {
+                    viewModel.setRandomFactData(it)
+                }
+                mainViewState.facts?.let {
+                    viewModel.setFactsData(it)
+                }
             }
-            dataState.facts?.let {
-                viewModel.setFactsData(it)
+
+            // handle error
+            dataState.message?.let {
+
+            }
+
+            // handle loading
+            dataState.loading.let {
+
             }
         })
 
