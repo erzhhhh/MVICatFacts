@@ -54,12 +54,14 @@ class MainFragment : Fragment() {
             dataStateListener.onDataStateChange(dataState)
 
             // handle data
-            dataState.data?.let { mainViewState ->
-                mainViewState.randomFact?.let {
-                    viewModel.setRandomFactData(it)
-                }
-                mainViewState.facts?.let {
-                    viewModel.setFactsData(it)
+            dataState.data?.let { event ->
+                event.getContentIfNotHandled()?.let {
+                    it.randomFact?.let {
+                        viewModel.setRandomFactData(it)
+                    }
+                    it.facts?.let {
+                        viewModel.setFactsData(it)
+                    }
                 }
             }
         })
