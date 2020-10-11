@@ -11,7 +11,7 @@ interface ApiService {
     @GET("facts/random")
     fun getFactOfTheDay(): LiveData<GenericApiResponse<RandomFact>>
 
-    @GET("facts/random?animal_type=cat&amount=10")
+    @GET("facts/random?animal_type=cat&amount=20")
     fun getFacts(): LiveData<GenericApiResponse<List<Fact>>>
 
 }
