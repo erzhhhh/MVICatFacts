@@ -1,5 +1,6 @@
 package com.example.mviarchitecture.ui.main
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -7,11 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.mviarchitecture.R
+import com.example.mviarchitecture.ui.DataStateListener
 import com.example.mviarchitecture.ui.main.state.MainStateEvent
 
 class MainFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
+
+    private lateinit var dataStateListener: DataStateListener
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -19,6 +23,15 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try {
+            dataStateListener = context as DataStateListener
+        } catch (e: ClassCastException) {
+            Log.i("MainFragment", "$context must implement DataStateListener")
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,6 +50,8 @@ class MainFragment : Fragment() {
     private fun subscribeObservers() {
 
         viewModel.dataState.observe(viewLifecycleOwner, Observer { dataState ->
+            // handle error and loading in mainActivity
+            dataStateListener.onDataStateChange(dataState)
 
             // handle data
             dataState.data?.let { mainViewState ->
@@ -46,16 +61,6 @@ class MainFragment : Fragment() {
                 mainViewState.facts?.let {
                     viewModel.setFactsData(it)
                 }
-            }
-
-            // handle error
-            dataState.message?.let {
-
-            }
-
-            // handle loading
-            dataState.loading.let {
-
             }
         })
 
